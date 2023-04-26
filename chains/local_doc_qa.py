@@ -12,7 +12,7 @@ from typing import List
 from textsplitter import ChineseTextSplitter
 
 # return top-k text chunk from vector store
-VECTOR_SEARCH_TOP_K = 6
+VECTOR_SEARCH_TOP_K = 2
 
 # LLM input history length
 LLM_HISTORY_LEN = 3
@@ -111,8 +111,11 @@ class LocalDocQA:
                                    query,
                                    vs_path,
                                    chat_history=[], ):
-        prompt_template = """基于以下已知信息，简洁和专业的来回答用户的问题。
-    如果无法从中得到答案，请说 "根据已知信息无法回答该问题" 或 "没有提供足够的相关信息"，不允许在答案中添加编造成分，答案请使用中文。
+        prompt_template = """
+    你的身份是道天录游戏客服。
+    必须基于以下已知信息，简洁和专业的来回答用户的问题。
+    如果无法从中得到答案，请说 "根据已知信息无法回答该问题" 或 "没有提供足够的相关信息"，不允许在答案中添加编造成分，答案请使用中文或数字或符号。
+    在答案的开头加上问候句: "道友您好"。
     
     已知内容:
     {context}
@@ -135,7 +138,7 @@ class LocalDocQA:
         )
 
         knowledge_chain.return_source_documents = True
-        
+
         result = knowledge_chain({"query": query})
         self.llm.history[-1][0] = query
         return result, self.llm.history
