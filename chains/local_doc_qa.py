@@ -21,12 +21,14 @@ LLM_HISTORY_LEN = 3
 def load_file(filepath):
     if filepath.lower().endswith(".pdf"):
         loader = UnstructuredFileLoader(filepath)
-        textsplitter = ChineseTextSplitter(pdf=True)
-        docs = loader.load_and_split(textsplitter)
+        # textsplitter = ChineseTextSplitter(pdf=True)
+        # docs = loader.load_and_split(textsplitter)
+        docs = loader.load()
     else:
         loader = UnstructuredFileLoader(filepath, mode="elements")
-        textsplitter = ChineseTextSplitter(pdf=False)
-        docs = loader.load_and_split(text_splitter=textsplitter)
+        # textsplitter = ChineseTextSplitter(pdf=False)
+        # docs = loader.load_and_split(text_splitter=textsplitter)
+        docs = loader.load()
     return docs
 
 
