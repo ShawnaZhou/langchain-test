@@ -2,7 +2,7 @@ import json
 from langchain.llms.base import LLM
 from typing import Optional, List
 from langchain.llms.utils import enforce_stop_tokens
-from transformers import AutoTokenizer, AutoModel, AutoConfig
+from transformers import AutoTokenizer, AutoModel, AutoConfig, AutoModelForCausalLM
 import torch
 from configs.model_config import LLM_DEVICE
 
@@ -96,7 +96,7 @@ class ChatGLM(LLM):
         return response
 
     def load_model(self,
-                   model_name_or_path: str = "THUDM/chatglm-6b",
+                   model_name_or_path: str = "decapoda-research/llama-7b-hf",
                    # model_name_or_path: str = "/home/dev/model_inputs/llama-7b-hf",
                    llm_device=LLM_DEVICE,
                    use_ptuning_v2=False,
@@ -124,15 +124,16 @@ class ChatGLM(LLM):
             # 根据当前设备GPU数量决定是否进行多卡部署
             num_gpus = torch.cuda.device_count()
             if num_gpus < 2 and device_map is None:
-                self.model = (
-                    AutoModel.from_pretrained(
-                        model_name_or_path,
-                        config=model_config,
-                        trust_remote_code=True,
-                        **kwargs)
-                    .half()
-                    .cuda()
-                )
+                self.model = AutoModelForCausalLM.from_pretrained("decapoda-research/llama-7b-hf")
+                # self.model = (
+                #     AutoModel.from_pretrained(
+                #         model_name_or_path,
+                #         config=model_config,
+                #         trust_remote_code=True,
+                #         **kwargs)
+                #     .half()
+                #     .cuda()
+                # )
             else:
                 from accelerate import dispatch_model
 
@@ -148,8 +149,8 @@ class ChatGLM(LLM):
                     model_name_or_path,
                     config=model_config,
                     trust_remote_code=True)
-                .float()
-                .to(llm_device)
+                    .float()
+                    .to(llm_device)
             )
 
         if use_ptuning_v2:
