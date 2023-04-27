@@ -2,7 +2,7 @@ import json
 from langchain.llms.base import LLM
 from typing import Optional, List
 from langchain.llms.utils import enforce_stop_tokens
-from transformers import AutoTokenizer, AutoModel, AutoConfig, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModel, AutoConfig, AutoModelForCausalLM, LLaMATokenizer
 import torch
 from configs.model_config import LLM_DEVICE
 
