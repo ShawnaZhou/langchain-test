@@ -96,7 +96,8 @@ class ChatGLM(LLM):
         return response
 
     def load_model(self,
-                   model_name_or_path: str = "THUDM/chatglm-6b",
+                   # model_name_or_path: str = "THUDM/chatglm-6b",
+                   model_name_or_path: str = "ClueAI/ChatYuan-large-v2",
                    llm_device=LLM_DEVICE,
                    use_ptuning_v2=False,
                    device_map: Optional[Dict[str, int]] = None,
