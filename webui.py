@@ -8,10 +8,10 @@ import nltk
 nltk.data.path = [os.path.join(os.path.dirname(__file__), "nltk_data")] + nltk.data.path
 
 # return top-k text chunk from vector store
-VECTOR_SEARCH_TOP_K = 2
+VECTOR_SEARCH_TOP_K = 6
 
 # LLM input history length
-LLM_HISTORY_LEN = 3
+LLM_HISTORY_LEN = 0
 
 
 def get_vs_list():
@@ -31,7 +31,7 @@ local_doc_qa = LocalDocQA()
 
 def get_answer(query, vs_path, history, mode):
     if vs_path and mode == "知识库问答":
-        resp, history = local_doc_qa.get_knowledge_based_answer(
+        resp = local_doc_qa.get_knowledge_based_answer(
             query=query, vs_path=vs_path, chat_history=history)
         source = "".join([f"""<details> <summary>出处 {i + 1}</summary>
 {doc.page_content}
@@ -54,7 +54,7 @@ def update_status(history, status):
 def init_model():
     try:
         local_doc_qa.init_cfg()
-        local_doc_qa.llm._call("你好")
+        # local_doc_qa.llm._call("你好")
         return """模型已成功加载，可以开始对话，或从右侧选择模式后开始对话"""
     except Exception as e:
         print(e)
@@ -63,11 +63,12 @@ def init_model():
 
 def reinit_model(llm_model, embedding_model, llm_history_len, use_ptuning_v2, top_k, history):
     try:
-        local_doc_qa.init_cfg(llm_model=llm_model,
-                              embedding_model=embedding_model,
-                              llm_history_len=llm_history_len,
-                              use_ptuning_v2=use_ptuning_v2,
-                              top_k=top_k)
+        local_doc_qa.init_cfg(
+            llm_model=llm_model,
+            embedding_model=embedding_model,
+            llm_history_len=llm_history_len,
+            use_ptuning_v2=use_ptuning_v2,
+            top_k=top_k)
         model_status = """模型已成功重新加载，可以开始对话，或从右侧选择模式后开始对话"""
     except Exception as e:
         print(e)

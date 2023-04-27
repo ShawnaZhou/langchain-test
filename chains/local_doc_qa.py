@@ -33,7 +33,7 @@ def load_file(filepath):
 
 
 class LocalDocQA:
-    llm: object = None
+    # llm: object = None
     embeddings: object = None
     top_k: int = VECTOR_SEARCH_TOP_K
 
@@ -46,11 +46,11 @@ class LocalDocQA:
                  top_k=VECTOR_SEARCH_TOP_K,
                  use_ptuning_v2: bool = USE_PTUNING_V2
                  ):
-        self.llm = ChatGLM()
-        self.llm.load_model(model_name_or_path=llm_model_dict[llm_model],
-                            llm_device=llm_device,
-                            use_ptuning_v2=use_ptuning_v2)
-        self.llm.history_len = llm_history_len
+        # self.llm = ChatGLM()
+        # self.llm.load_model(model_name_or_path=llm_model_dict[llm_model],
+        #                     llm_device=llm_device,
+        #                     use_ptuning_v2=use_ptuning_v2)
+        # self.llm.history_len = llm_history_len
 
         self.embeddings = HuggingFaceEmbeddings(model_name=embedding_model_dict[embedding_model],
                                                 model_kwargs={'device': embedding_device})
@@ -113,27 +113,30 @@ class LocalDocQA:
                                    query,
                                    vs_path,
                                    chat_history=[], ):
-        prompt_template = """作为道天录游戏客服，必须基于以下已知信息生成对客户问题的回复，如果无法从中得到答案，请直接说 "根据已知信息无法回答该问题，请输入【联系客服】与真人客服联系哦！"，不允许在答案中添加编造成分，
-        答案请使用中文。
-        已知信息: {context}
-        问题:{question}"""
-        prompt = PromptTemplate(
-            template=prompt_template,
-            input_variables=["context", "question"]
-        )
-        self.llm.history = chat_history
+        # prompt_template = """作为道天录游戏客服，必须基于以下已知信息生成对客户问题的回复，如果无法从中得到答案，请直接说 "根据已知信息无法回答该问题，请输入【联系客服】与真人客服联系哦！"，不允许在答案中添加编造成分，
+        # 答案请使用中文。
+        # 已知信息: {context}
+        # 问题:{question}"""
+        # prompt = PromptTemplate(
+        #     template=prompt_template,
+        #     input_variables=["context", "question"]
+        # )
+        # self.llm.history = chat_history
         vector_store = FAISS.load_local(vs_path, self.embeddings)
-        knowledge_chain = RetrievalQA.from_llm(
-            llm=self.llm,
-            retriever=vector_store.as_retriever(search_kwargs={"k": self.top_k}),
-            prompt=prompt
-        )
-        knowledge_chain.combine_documents_chain.document_prompt = PromptTemplate(
-            input_variables=["page_content"], template="{page_content}"
-        )
+        # knowledge_chain = RetrievalQA.from_llm(
+        #     llm=self.llm,
+        #     retriever=vector_store.as_retriever(search_kwargs={"k": self.top_k}),
+        #     prompt=prompt
+        # )
+        retriever = vector_store.as_retriever(search_kwargs={"k": self.top_k})
+        print('retriever', retriever)
+        # knowledge_chain.combine_documents_chain.document_prompt = PromptTemplate(
+        #     input_variables=["page_content"], template="{page_content}"
+        # )
 
-        knowledge_chain.return_source_documents = True
+        # knowledge_chain.return_source_documents = True
 
-        result = knowledge_chain({"query": query})
-        self.llm.history[-1][0] = query
-        return result, self.llm.history
+        # result = knowledge_chain({"query": query})
+        # self.llm.history[-1][0] = query
+        # return result, self.llm.history
+        return retriever
