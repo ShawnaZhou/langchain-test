@@ -3,6 +3,8 @@
 # 需要设置环境变量 export OPENAI_API_KEY=sk-xxx
 
 # from langchain.chat_models import ChatOpenAI
+import torch.cuda
+import torch.backends
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import Chroma
