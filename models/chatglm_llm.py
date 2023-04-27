@@ -96,8 +96,8 @@ class ChatGLM(LLM):
         return response
 
     def load_model(self,
-                   # model_name_or_path: str = "THUDM/chatglm-6b",
-                   model_name_or_path: str = "/home/dev/model_inputs/llama-7b-hf",
+                   model_name_or_path: str = "THUDM/chatglm-6b",
+                   # model_name_or_path: str = "/home/dev/model_inputs/llama-7b-hf",
                    llm_device=LLM_DEVICE,
                    use_ptuning_v2=False,
                    device_map: Optional[Dict[str, int]] = None,

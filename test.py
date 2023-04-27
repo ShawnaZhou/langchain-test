@@ -39,15 +39,25 @@ if __name__ == '__main__':
     # 本地搜索到的chunk会作为context，和问题一起提交给LLM来处理。我们当然要使用ChatGPT模型了，比GPT-3.0又好又便宜
     # llm = ChatOpenAI(temperature=0)
 
-    # 2. chatglm
     LLM_DEVICE = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     llm = ChatGLM()
-    llm.load_model(model_name_or_path="/home/dev/model_inputs/llama-7b-hf",
-                   llm_device=LLM_DEVICE,
-                   use_ptuning_v2=False)
+    # 2. chatglm
+    # llm.load_model(model_name_or_path="Thumb/chatglm-6b",
+    #                llm_device=LLM_DEVICE,
+    #                use_ptuning_v2=False)
+    # 3.ChatYuan
+    # llm.load_model(model_name_or_path="ClueAI/ChatYuan-large-v2",
+    #                llm_device=LLM_DEVICE,
+    #                use_ptuning_v2=False)
+    # 4. LLaMA
+    llm.load_model(
+        model_name_or_path="decapoda-research/llama-7b-hf",
+        llm_device=LLM_DEVICE,
+        use_ptuning_v2=False
+    )
     llm.history_len = 0
 
-    # TODO 3. LLaMA
+
 
     # chain是LangChain里的概念，其实就相当于定义了一个流程，这里我们提供的参数就是文档语义搜索工具以及LLM
     chain = RetrievalQA.from_chain_type(llm, retriever=db.as_retriever())
