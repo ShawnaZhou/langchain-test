@@ -52,7 +52,7 @@ class LocalDocQA:
         #                     use_ptuning_v2=use_ptuning_v2)
         # self.llm.history_len = llm_history_len
 
-        self.embeddings = HuggingFaceEmbeddings(model_name=embedding_model_dict[embedding_model],
+        self.embeddings = HuggingFaceEmbeddings(model_name="GanymedeNil/text2vec-large-chinese",
                                                 model_kwargs={'device': embedding_device})
         # self.embeddings.client = sentence_transformers.SentenceTransformer(self.embeddings.model_name,
         #                                                                    device=embedding_device)
