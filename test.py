@@ -16,7 +16,7 @@ import time
 if __name__ == '__main__':
     # os.environ["OPENAI_API_KEY"] = "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"
     # 提示用户输入文件名，支持pdf文件和普通文本文件
-    file_path = os.path.abspath("/home/dev/customer-ai/test.pdf")
+    file_path = os.path.abspath("/home/dev/model_inputs/retry/test.pdf")
     # file_path = "/Users/marshoo/Desktop/hortor/"
 
     # 根据文件类型来定义一个loader，不同的loader能够解析不同的文件内容，最终都会解析为一个大文本
