@@ -52,7 +52,7 @@ def auto_configure_device_map(num_gpus: int) -> Dict[str, int]:
 
 class ChatGLM(LLM):
     max_token: int = 10000
-    temperature: float = 0.001
+    temperature: float = 0.01
     top_p = 0.9
     history = []
     tokenizer: object = None
@@ -97,7 +97,7 @@ class ChatGLM(LLM):
 
     def load_model(self,
                    # model_name_or_path: str = "THUDM/chatglm-6b",
-                   model_name_or_path: str = "ClueAI/ChatYuan-large-v2",
+                   model_name_or_path: str = "/home/dev/model_inputs/llama-7b-hf",
                    llm_device=LLM_DEVICE,
                    use_ptuning_v2=False,
                    device_map: Optional[Dict[str, int]] = None,

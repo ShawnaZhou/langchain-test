@@ -42,7 +42,7 @@ if __name__ == '__main__':
     # 2. chatglm
     LLM_DEVICE = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     llm = ChatGLM()
-    llm.load_model(model_name_or_path="ClueAI/ChatYuan-large-v2",
+    llm.load_model(model_name_or_path="/home/dev/model_inputs/llama-7b-hf",
                    llm_device=LLM_DEVICE,
                    use_ptuning_v2=False)
     llm.history_len = 0
