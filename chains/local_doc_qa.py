@@ -40,11 +40,11 @@ class LocalDocQA:
     def init_cfg(self,
                  embedding_model: str = EMBEDDING_MODEL,
                  embedding_device=EMBEDDING_DEVICE,
-                 # llm_history_len: int = LLM_HISTORY_LEN,
-                 # llm_model: str = LLM_MODEL,
-                 # llm_device=LLM_DEVICE,
+                 llm_history_len: int = LLM_HISTORY_LEN,
+                 llm_model: str = LLM_MODEL,
+                 llm_device=LLM_DEVICE,
                  top_k=VECTOR_SEARCH_TOP_K,
-                 # use_ptuning_v2: bool = USE_PTUNING_V2
+                 use_ptuning_v2: bool = USE_PTUNING_V2
                  ):
         self.llm = ChatGLM()
         self.llm.load_model(model_name_or_path=llm_model_dict[llm_model],
