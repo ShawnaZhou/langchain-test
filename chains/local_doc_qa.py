@@ -40,11 +40,11 @@ class LocalDocQA:
     def init_cfg(self,
                  embedding_model: str = EMBEDDING_MODEL,
                  embedding_device=EMBEDDING_DEVICE,
-                 llm_history_len: int = LLM_HISTORY_LEN,
-                 llm_model: str = LLM_MODEL,
-                 llm_device=LLM_DEVICE,
+                 # llm_history_len: int = LLM_HISTORY_LEN,
+                 # llm_model: str = LLM_MODEL,
+                 # llm_device=LLM_DEVICE,
                  top_k=VECTOR_SEARCH_TOP_K,
-                 use_ptuning_v2: bool = USE_PTUNING_V2
+                 # use_ptuning_v2: bool = USE_PTUNING_V2
                  ):
         self.llm = ChatGLM()
         self.llm.load_model(model_name_or_path=llm_model_dict[llm_model],
@@ -113,10 +113,10 @@ class LocalDocQA:
                                    query,
                                    vs_path,
                                    chat_history=[], ):
-        prompt_template = """作为道天录游戏客服，必须基于以下已知信息生成对客户查询的回复，如果无法从中得到答案，请直接说 "根据已知信息无法回答该问题，请输入【联系客服】与真人客服联系哦！"，不允许在答案中添加编造成分，答案请使用中文。 已知信息: {context} 
-    
-    问题:
-    {question}"""
+        prompt_template = """作为道天录游戏客服，必须基于以下已知信息生成对客户问题的回复，如果无法从中得到答案，请直接说 "根据已知信息无法回答该问题，请输入【联系客服】与真人客服联系哦！"，不允许在答案中添加编造成分，
+        答案请使用中文。
+        已知信息: {context}
+        问题:{question}"""
         prompt = PromptTemplate(
             template=prompt_template,
             input_variables=["context", "question"]
