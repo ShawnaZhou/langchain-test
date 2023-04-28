@@ -28,4 +28,4 @@ while True:
     query = input("Q：")
     result = indexStore.similarity_search(query)
     # for content in result
-    print('A', result[0].page_content, result[1].page_content)
+    print('A', result[0].page_content, result[1].page_content, result[2].page_content, result[3].page_content)
