@@ -1,5 +1,4 @@
 from langchain.document_loaders import UnstructuredPDFLoader
-# from langchain.indexes import VectorstoreIndexCreator
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
 
@@ -16,9 +15,9 @@ chunks = loader.load_and_split(splitter)
 # 把文本转换为向量。
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 # 建立向量索引
-indexStore = Chroma().from_documents(chunks, embeddings)
+indexStore = Chroma.from_documents(chunks, embeddings)
 
 while True:
-    query = inputStore("Q：")
+    query = input("Q：")
     result = indexStore.query_with_sources(query)
     print('A：', result)
