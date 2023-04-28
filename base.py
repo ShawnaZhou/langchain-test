@@ -24,7 +24,7 @@ chunks = loader.load_and_split(splitter)
 embeddings = HuggingFaceEmbeddings(model_name="GanymedeNil/text2vec-large-chinese")
 # 建立向量索引
 indexStore = Chroma.from_documents(chunks, embeddings)
-retriever = indexStore.as_retriever()
+retriever = indexStore.as_retriever(search_kwargs={"k": 5})
 
 while True:
     query = input("Q：")
