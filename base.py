@@ -1,6 +1,6 @@
 from langchain.document_loaders import UnstructuredPDFLoader
 from langchain.indexes import VectorstoreIndexCreator
-
+import os
 # 加载文件
 file_path = os.path.abspath("/home/dev/model_inputs/retry/test.pdf")
 loader = UnstructuredPDFLoader(file_path, mode="elements")
