@@ -16,8 +16,8 @@ splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
 #                                  chunk_overlap=200,
 #                                  length_function=len,
 #                                  )
-# textsplitter = ChineseTextSplitter(pdf=True)
-chunks = loader.load_and_split(textsplitter)
+# splitter = ChineseTextSplitter(pdf=True)
+chunks = loader.load_and_split(splitter)
 
 # 把文本转换为向量。
 embeddings = HuggingFaceEmbeddings(model_name="GanymedeNil/text2vec-large-chinese")
