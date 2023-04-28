@@ -30,4 +30,5 @@ while True:
     query = input("Q：")
     result = retriever.get_relevant_documents(query)
     # for content in result
-    print('A', result)
+    print('A', result[0].page_content, '\n', result[1].page_content, '\n', result[2].page_content, '\n',
+          result[3].page_content)
