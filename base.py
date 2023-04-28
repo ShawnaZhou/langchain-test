@@ -11,11 +11,11 @@ loader = file_path.endswith(".pdf") and PyPDFLoader(file_path) or TextLoader(fil
 
 # 定义文本分块的规则，这里用了一个很简单的规则，按照默认的分隔符来切割文本，使得每一段不超过1000个字符
 # splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20)
-splitter = CharacterTextSplitter(separator="\n",
-                                 chunk_size=200,
-                                 chunk_overlap=200,
-                                 )
-# splitter = ChineseTextSplitter(pdf=True)
+# splitter = CharacterTextSplitter(separator="\n",
+#                                  chunk_size=200,
+#                                  chunk_overlap=200,
+#                                  )
+splitter = ChineseTextSplitter(pdf=True)
 chunks = loader.load_and_split(splitter)
 
 # 把文本转换为向量。
