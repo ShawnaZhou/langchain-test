@@ -23,9 +23,10 @@ chunks = loader.load_and_split(textsplitter)
 embeddings = HuggingFaceEmbeddings(model_name="GanymedeNil/text2vec-large-chinese")
 # 建立向量索引
 indexStore = Chroma.from_documents(chunks, embeddings)
+retriever = indexStore.as_retriever()
 
 while True:
     query = input("Q：")
-    result = indexStore.similarity_search(query)
+    result = retriever.get_relevant_documents(query)
     # for content in result
     print('A', result[0].page_content, result[1].page_content, result[2].page_content, result[3].page_content)
