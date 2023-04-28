@@ -19,5 +19,5 @@ indexStore = Chroma.from_documents(chunks, embeddings)
 
 while True:
     query = input("Q：")
-    result = indexStore.query_with_sources(query)
+    result = indexStore.query(query)
     print('A：', result)
