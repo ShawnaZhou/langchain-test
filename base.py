@@ -25,5 +25,5 @@ indexStore = Chroma.from_documents(chunks, embeddings)
 while True:
     query = input("Q：")
     result = indexStore.similarity_search(query)
-    for content in result
-        print('A', content.page_content)
+    # for content in result
+    print('A', result)
