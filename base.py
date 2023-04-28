@@ -13,7 +13,7 @@ splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
 chunks = loader.load_and_split(splitter)
 
 # 把文本转换为向量。
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
+embeddings = HuggingFaceEmbeddings(model_name="GanymedeNil/text2vec-large-chinese")
 # 建立向量索引
 indexStore = Chroma.from_documents(chunks, embeddings)
 
